@@ -1,0 +1,34 @@
+/**
+ * @param {number[]} ratings
+ * @return {number}
+ */
+var candy = function(ratings) {
+  let candy = Array(ratings.length).fill(1);
+  let finished = false;
+  let result = 0;
+  let validate = () => {
+    let i = 0;
+    finished = true;
+    while (i < ratings.length - 1) {
+      // conditions where change required
+      if ((ratings[i] > ratings[i + 1]) && (candy[i] <= candy[i + 1])) {
+        candy[i] = candy[i + 1] + 1;
+        finished = false;
+      }
+      if ((ratings[i] < ratings[i + 1]) && (candy[i] >= candy[i + 1])) {
+        candy[i + 1] = candy[i] + 1
+        finished = false;
+      }
+      i++;
+    }
+    return;
+  }
+  validate();
+  while (!finished) {
+    validate();
+  }
+  for (let i = 0; i < candy.length; i++) {
+      result += candy[i];
+  }
+  return result;
+};
